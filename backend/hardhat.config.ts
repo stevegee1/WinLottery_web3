@@ -10,6 +10,12 @@ const config: HardhatUserConfig = {
   networks: {
     sepolia: {
       url: SEPOLIA_URL,
+      chainId: 11155111,
+      accounts: [PRIVATE_KEY!],
+    },
+    mainnet: {
+      url: process.env.ETH_URL,
+      chainId: 1,
       accounts: [PRIVATE_KEY!],
     },
   },
@@ -17,10 +23,16 @@ const config: HardhatUserConfig = {
     deployer: {
       default: 0,
     },
-    user:{
-      default:1
-    }
+    user: {
+      default: 1,
+    },
   },
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  mocha:{
+    timeout:3000
+  }
 };
 
 export default config;
