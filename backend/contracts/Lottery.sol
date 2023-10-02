@@ -149,6 +149,9 @@ contract Lottery is
     function getLastTimestamp() public view returns (uint) {
         return lastTimestamp;
     }
+    function getEntranceFee() public view returns(uint){
+        return s_minimumFee;
+    }
 
     function getAddressOfIndex(uint _index) public view returns (address) {
         return s_participantArray[_index];

@@ -18,6 +18,10 @@ const config: HardhatUserConfig = {
       chainId: 1,
       accounts: [PRIVATE_KEY!],
     },
+    localhost: {
+      url: "http://127.0.0.1:8545/",
+      chainId: 31337,
+    },
   },
   namedAccounts: {
     deployer: {
@@ -30,9 +34,7 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
-  mocha:{
-    timeout:3000
-  }
+  mocha: {},
 };
 
 export default config;

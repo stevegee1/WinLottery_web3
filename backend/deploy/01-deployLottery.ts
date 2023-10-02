@@ -30,8 +30,10 @@ const deployLottery: DeployFunction = async (
       from: deployer,
       args: networkConfig.chainIds[1],
       log: true,
+      waitConfirmations:6
     });
     const lotteryAddress = (await deployed).address;
+    
 
     await Verify(lotteryAddress, networkConfig.chainIds[1]);
   }

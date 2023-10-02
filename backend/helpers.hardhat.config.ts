@@ -13,12 +13,12 @@ export const networkConfig = {
     ],
     11155111: [
       "0x8103b0a8a00be2ddc778e6e7eaa21791cd364625",
-      ethers.parseEther("0.001"),
+      ethers.parseEther("0.00001"),
       2354,
       "0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c",
-      100000,
+      2500000,
       3,
-      2,
+      1,
       30,
     ],
     
