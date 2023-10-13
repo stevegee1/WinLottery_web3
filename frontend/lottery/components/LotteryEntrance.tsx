@@ -13,14 +13,16 @@ export default function LotteryEntrace() {
     const { chainId, isWeb3Enabled } = useMoralis()
     const [entranceFee, setEntranceFee] = useState("0")
     const [participant, setParticipant] = useState("0")
-    const [winner, setWinner]=useState("")
+    const [winner, setWinner] = useState("")
     const chainID = parseInt(chainId!).toString()
 
     let entranceFeeinWei: BigNumber
+    //Get the contractAddress corresponding to the chain
     const lotteryAddress =
         chainID in contractAddresses ? addresses[chainID] : null
     const dispatch = useNotification()
 
+    //enterLottery function
     const { runContractFunction: enterLottery } = useWeb3Contract({
         abi: abi,
         contractAddress: lotteryAddress!,
@@ -28,30 +30,37 @@ export default function LotteryEntrace() {
         params: {},
         msgValue: entranceFee,
     })
+
+    //number of participants in the Lottery
     const { runContractFunction: numberOfParticipants } = useWeb3Contract({
         abi: abi,
         contractAddress: lotteryAddress!,
         functionName: "numberOfParticipants",
         params: {},
     })
-    const { runContractFunction:getRecentWinner  } = useWeb3Contract({
+
+    //The most recent winner of the Lottery
+    const { runContractFunction: getRecentWinner } = useWeb3Contract({
         abi: abi,
         contractAddress: lotteryAddress!,
         functionName: "getRecentWinner",
         params: {},
     })
+
+    //EntranceFee to enter the Lottery
     const { runContractFunction: getEntranceFee } = useWeb3Contract({
         abi: abi,
         contractAddress: lotteryAddress!,
         functionName: "getEntranceFee",
         params: {},
     })
+
     async function updateUI() {
         const entranceFeeFromCall = (
             (await getEntranceFee()) as BigNumber
         ).toString()
         setEntranceFee(entranceFeeFromCall)
-        const recentWinner= (await getRecentWinner() as String).toString()
+        const recentWinner = ((await getRecentWinner()) as String).toString()
         setWinner(recentWinner)
 
         const numofParticipants = (
@@ -59,14 +68,11 @@ export default function LotteryEntrace() {
         ).toString()
         setParticipant(numofParticipants)
 
-    
-
-        
         //  console.log(entranceFeeinWei)
     }
     const handleSuccess = async function (tx: ContractTransaction) {
         await tx.wait(1)
-        handleNewNotification( )
+        handleNewNotification()
         updateUI()
     }
     const handleNewNotification = function () {
@@ -75,7 +81,7 @@ export default function LotteryEntrace() {
             message: "Transaction Complete!",
             title: "Transaction Notification",
             position: "topR",
-            icon: (("Bell") as unknown) as React.ReactElement,
+            icon: "Bell" as unknown as React.ReactElement,
         })
     }
 
