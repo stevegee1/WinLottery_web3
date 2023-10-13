@@ -25,6 +25,6 @@ npm run dev
 * localhost: ```npx hardhat deploy --network localhost```
 
 # Test Contract
-```npx hardhat test --network sepolia``
+```npx hardhat test --network sepolia```
 
 
